@@ -9,7 +9,7 @@ import { BASE_URL } from '../../config.js'
 const Register = () => {
 
      const navigate = useNavigate();
-     const [selectFile, setSelectFile] = useState(null)
+     const [selectFile, setSelectFile] = useState('')
      const [previewURL, serPreviewURL] = useState('')
      const [loading, setLoading] = useState(false)
      const [fromData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Register = () => {
     password: '',
     photo: selectFile,
     gender: '',
-    role: 'patient'
+    role: 'doctor'
   })
 
   

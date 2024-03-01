@@ -16,6 +16,7 @@ const uploadImageCloudinary = async file =>{
 
  const data = await res.json()
  return data;
+ 
 }
 
 export default uploadImageCloudinary

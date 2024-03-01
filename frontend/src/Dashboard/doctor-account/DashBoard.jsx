@@ -4,7 +4,7 @@ import useGetProfile from '../../hooks/useFetchData'
 import { BASE_URL } from '../../../config'
 import Tab from './Tab'
 import { useState } from 'react'
-import img from '../../assets/images/doctor-img01.png'
+
 
 const DashBoard = () => {
 
@@ -51,7 +51,7 @@ const DashBoard = () => {
                 {tab ==='overview' && (
                 <div className='flex items-center gap-4 mb-10'>
                    <figure className='max-w-[200px] max-h-[200px]'>
-                    <img src={img} alt="w-full" />
+                    <img src={data.photo} alt="w-full" />
                    </figure>
 
                    <div className="bg-[#CFF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg-px-6 rounded text-[12px] lg:text-[16px] lg:leading-6 leading-4 font-semibold  ">{data.specialization}</div>

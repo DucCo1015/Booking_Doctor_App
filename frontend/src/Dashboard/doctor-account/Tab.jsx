@@ -3,16 +3,15 @@ import {BiMenu} from 'react-icons/bi'
 import {authContext} from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
-
 const Tab = ({tab, setTab}) => {
 
  const navigate = useNavigate()
- const dispatch = useContext(authContext)
+ const {dispatch} = useContext(authContext)
 
  const handleLogout = () => {
-   dispatch({type: 'LOGOUT'})
-   navigate('/')
- }
+  dispatch({ type: "LOGOUT" });
+  navigate('/')
+};
  
   return (
     <div>
