@@ -50,7 +50,7 @@ const Tab = ({tab, setTab}) => {
               : "bg-transparent text-headingColor"
           } w-full btn mt-0 rounded-md`}
         >
-          setting
+          profile
         </button>
 
         <div className="mt-[50px] md:mt-[100px]">
