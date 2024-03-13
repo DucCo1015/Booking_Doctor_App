@@ -1,34 +1,34 @@
-import Loader from '../../components/Loader/Loading'
-import Error from '../../components/Error/Error'
-import useGetProfile from '../../hooks/useFetchData'
-import { BASE_URL } from '../../../config'
-import Tab from './Tab'
-import { useState } from 'react'
-import startIcon from '../../assets/images/Star.png'
-import DoctorAbout from '../../pages/Doctors/DoctorAbout'
-import Profile from './Profile'
-
+import Loader from "../../components/Loader/Loading";
+import Error from "../../components/Error/Error";
+import useGetProfile from "../../hooks/useFetchData";
+import { BASE_URL } from "../../../config";
+import Tab from "./Tab";
+import { useState } from "react";
+import startIcon from "../../assets/images/Star.png";
+import DoctorAbout from "../../pages/Doctors/DoctorAbout";
+import Profile from "./Profile";
+import Appointments from "./Appointments";
 
 const DashBoard = () => {
+  const { data, loading, error } = useGetProfile(
+    `${BASE_URL}/doctors/profile/me`
+  );
 
-  const {data, loading, error} = useGetProfile(`${BASE_URL}/doctors/profile/me`)
-
-  const [tab,setTab] = useState('overview')
+  const [tab, setTab] = useState("overview");
 
   return (
-   <section>
-    <div className='max-w-[1170px] px-5 mx-auto'>
-      {loading && !error && <Loader/>}
-      {error && !loading && <Error/>}
+    <section>
+      <div className="max-w-[1170px] px-5 mx-auto">
+        {loading && !error && <Loader />}
+        {error && !loading && <Error />}
 
-      {
-        !loading && !error && (
-          <div className='grid grid-cols-3 gap-[30px] lg:gap-[50px]'>
-            <Tab tab = {tab} setTab={setTab}/> 
+        {!loading && !error && (
+          <div className="grid grid-cols-3 gap-[30px] lg:gap-[50px]">
+            <Tab tab={tab} setTab={setTab} />
 
-            <div className='lg:col-span-2'>
-              {data.isApproved === 'pending' && (
-                <div className='flex p-4 mb-4 text-yellow-800 bg-yellow-50 rounded-lg mt-[40px]'>
+            <div className="lg:col-span-2">
+              {data.isApproved === "pending" && (
+                <div className="flex p-4 mb-4 text-yellow-800 bg-yellow-50 rounded-lg mt-[40px]">
                   <svg
                     aria-hidden="true"
                     className="flex-shrink- w-5 h-5"
@@ -41,54 +41,65 @@ const DashBoard = () => {
                       d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                       clipRule="evenodd"
                     ></path>
-                  </svg>  
+                  </svg>
 
-                  <span className='sr-only'>Info</span>
-                  <div className='ml-3 text-sm font-medium'>
-                    To get approval please complete your profile. We will review manually ad approve within 3days 
+                  <span className="sr-only">Info</span>
+                  <div className="ml-3 text-sm font-medium">
+                    To get approval please complete your profile. We will review
+                    manually ad approve within 3days
                   </div>
                 </div>
               )}
 
-              <div className='mt-8'>
-                {tab ==='overview' && (
-                 <div>
-                    <div className='flex items-center gap-4 mb-10'>
-                      <figure className='max-w-[200px] max-h-[200px]'>
+              <div className="mt-8">
+                {tab === "overview" && (
+                  <div>
+                    <div className="flex items-center gap-4 mb-10">
+                      <figure className="max-w-[200px] max-h-[200px]">
                         <img src={data?.photo} alt="w-full" />
                       </figure>
 
                       <div>
-                          <span className="bg-[#CFF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg-px-6 rounded text-[12px] lg:text-[16px] lg:leading-6 leading-4 font-semibold">Surgeon</span>
+                        <span className="bg-[#CFF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg-px-6 rounded text-[12px] lg:text-[16px] lg:leading-6 leading-4 font-semibold">
+                          {data?.specialization}
+                        </span>
 
-                          <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">{data?.name}</h3>
+                        <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">
+                          {data?.name}
+                        </h3>
 
-                          <div className="flex items-center gap-[6px]">
-                            <span className="flex items-center gap-[6px] text-headingColor text-[14px] leading-5 lg:text[-16px] lg:leading-6 font-semibold mt-2">
-                              <img src={startIcon} alt="" />
-                            4.5</span>
+                        <div className="flex items-center gap-[6px]">
+                          <span className="flex items-center gap-[6px] text-headingColor text-[14px] leading-5 lg:text[-16px] lg:leading-6 font-semibold mt-2">
+                            <img src={startIcon} alt="" />
+                            {data.averageRating}
+                          </span>
 
-                            <span className=" text-textColor text-[14px] leading-5 lg:text[-16px] lg:leading-6 font-semibold mt-2">
-                            (233)</span>
-                          </div>
-                          <p className="text_para font-[15px] lg:max-w-[390px] leading-6">
-                            doctor bio
-                          </p>
+                          <span className=" text-textColor text-[14px] leading-5 lg:text[-16px] lg:leading-6 font-semibold mt-2">
+                            ({data.totalRating})
+                          </span>
+                        </div>
+                        <p className="text_para font-[15px] lg:max-w-[390px] leading-6">
+                          {data?.bio}
+                        </p>
                       </div>
                     </div>
-                    <DoctorAbout name = {data.name} about = {data.about} qualifications = {data.qualifications} experiences = {data.experiences}/>
-                 </div>
+                    <DoctorAbout
+                      name={data.name}
+                      about={data.about}
+                      qualifications={data.qualifications}
+                      experiences={data.experiences}
+                    />
+                  </div>
                 )}
-                {tab ==='appointments' && <div>appointments</div>}
-                {tab ==='setting' && <Profile/>}
+                {tab === "appointments" && <Appointments appointments={data.appointments}/>}
+                {tab === "setting" && <Profile doctorData={data}/>}
               </div>
             </div>
           </div>
-        )
-      }
-    </div>
-   </section>                     
-  )
-}
+        )}
+      </div>
+    </section>
+  );
+};
 
-export default DashBoard
+export default DashBoard;

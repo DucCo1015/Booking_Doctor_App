@@ -18,7 +18,7 @@ const Register = () => {
     password: '',
     photo: selectFile,
     gender: '',
-    role: 'doctor'
+    role: 'patient'
   })
 
   
